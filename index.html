@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Will You Be My Girlfriend?</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin-top: 50px;
+      background-color: #ffe6e6;
+    }
+    #question {
+      font-size: 30px;
+      margin-bottom: 40px;
+    }
+    .btn {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+      position: absolute;
+      transition: all 0.2s ease;
+    }
+    #yesBtn {
+      left: 40%;
+      top: 50%;
+    }
+    #noBtn {
+      left: 50%;
+      top: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="question">Will you be my girlfriend?</div>
+  <button id="yesBtn" class="btn">Yes</button>
+  <button id="noBtn" class="btn">No</button>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const question = document.getElementById('question');
+
+    let yesFontSize = 20;
+
+    yesBtn.onclick = () => {
+      question.innerText = "Yay! I love you!";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    };
+
+    noBtn.onclick = () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+
+      const randX = Math.floor(Math.random() * maxX);
+      const randY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randX + "px";
+      noBtn.style.top = randY + "px";
+
+      yesFontSize += 5;
+      yesBtn.style.fontSize = yesFontSize + "px";
+      yesBtn.style.padding = (10 + yesFontSize / 4) + "px " + (20 + yesFontSize / 2) + "px";
+    };
+  </script>
+
+</body>
+</html>
