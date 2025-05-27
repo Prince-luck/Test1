@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: gf-proposal
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn app:app"
