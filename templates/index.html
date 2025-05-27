@@ -1,70 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Will You Be My Girlfriend?</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      margin-top: 50px;
-      background-color: #ffe6e6;
-    }
-    #question {
-      font-size: 30px;
-      margin-bottom: 40px;
-    }
-    .btn {
-      font-size: 20px;
-      padding: 10px 20px;
-      margin: 10px;
-      position: absolute;
-      transition: all 0.2s ease;
-    }
-    #yesBtn {
-      left: 40%;
-      top: 50%;
-    }
-    #noBtn {
-      left: 50%;
-      top: 50%;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Will You Be My Girlfriend?</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+    background: #fff0f6;
+    position: relative;
+  }
+  button {
+    font-size: 16px;
+    padding: 15px 40px;
+    margin: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  #yesBtn {
+    background-color: #ff3366;
+    color: white;
+  }
+  #yesBtn:hover {
+    background-color: #ff6699;
+  }
+  #noBtn {
+    background-color: #aaa;
+    color: white;
+    position: relative;
+  }
+  body::after {
+    content: "❤️";
+    font-size: 30px;
+    position: fixed;
+    animation: float 4s infinite;
+    opacity: 0.5;
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+  }
+  @keyframes float {
+    0% { transform: translate(-50%, 0); opacity: 0.7; }
+    100% { transform: translate(-50%, -300px); opacity: 0; }
+  }
+</style>
 </head>
 <body>
 
-  <div id="question">Will you be my girlfriend?</div>
-  <button id="yesBtn" class="btn">Yes</button>
-  <button id="noBtn" class="btn">No</button>
+<h1>Will You Be My Girlfriend?</h1>
 
-  <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const question = document.getElementById('question');
+<button id="yesBtn" onclick="makeYesBigger()">YES</button>
+<button id="noBtn" onmouseover="moveNo()">NO</button>
 
-    let yesFontSize = 20;
+<audio autoplay loop>
+  <source src="{{ url_for('static', filename='music.mp3') }}" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
 
-    yesBtn.onclick = () => {
-      question.innerText = "Yay! I love you!";
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-    };
+<script>
+  let size = 16;
+  function makeYesBigger() {
+    size += 10;
+    const yesBtn = document.getElementById("yesBtn");
+    yesBtn.style.fontSize = size + "px";
+    yesBtn.innerText = size > 100 ? "PLEASE SAY YES!" : "YES";
+  }
 
-    noBtn.onclick = () => {
-      const maxX = window.innerWidth - noBtn.offsetWidth;
-      const maxY = window.innerHeight - noBtn.offsetHeight;
-
-      const randX = Math.floor(Math.random() * maxX);
-      const randY = Math.floor(Math.random() * maxY);
-
-      noBtn.style.left = randX + "px";
-      noBtn.style.top = randY + "px";
-
-      yesFontSize += 5;
-      yesBtn.style.fontSize = yesFontSize + "px";
-      yesBtn.style.padding = (10 + yesFontSize / 4) + "px " + (20 + yesFontSize / 2) + "px";
-    };
-  </script>
+  function moveNo() {
+    const btn = document.getElementById("noBtn");
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+    btn.style.position = "absolute";
+    btn.style.left = x + "px";
+    btn.style.top = y + "px";
+  }
+</script>
 
 </body>
 </html>
